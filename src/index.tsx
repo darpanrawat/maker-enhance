@@ -1,12 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-export default class MakerEnhance extends React.Component {
-  constructor(props) {
+
+export type Props = {
+  user: string,
+  index: string,
+  href: string
+}
+
+export type State = {
+  url: string
+}
+
+export default class MakerEnhance extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
-      url: props.location.href
+      url: props.href
     };
   }
 
@@ -14,10 +24,10 @@ export default class MakerEnhance extends React.Component {
     this.addScript();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     let urlUpdated = false;
 
-    if (props.location.href !== this.state.url) {
+    if (this.props.href !== this.state.url) {
       this.updateUrl();
       urlUpdated = true;
     }
@@ -29,12 +39,12 @@ export default class MakerEnhance extends React.Component {
 
   updateUrl() {
     this.setState({
-      url: props.location.href
+      url: this.props.href
     });
   }
 
   addScript() {
-    let script = document.querySelector("#maker-enhance-script");
+    let script:(HTMLScriptElement|null) = document.querySelector("#maker-enhance-script");
 
     if (script || !this.props.user) {
       return this.run();
@@ -68,7 +78,3 @@ export default class MakerEnhance extends React.Component {
     );
   }
 }
-
-MakerEnhance.propTypes = {
-  user: PropTypes.string.isRequired
-};
