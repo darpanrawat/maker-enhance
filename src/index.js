@@ -6,7 +6,7 @@ export default class MakerEnhance extends React.Component {
     super(props);
 
     this.state = {
-      url: window.location.href
+      url: props.location.href
     };
   }
 
@@ -17,7 +17,7 @@ export default class MakerEnhance extends React.Component {
   componentDidUpdate(prevProps) {
     let urlUpdated = false;
 
-    if (window.location.href !== this.state.url) {
+    if (props.location.href !== this.state.url) {
       this.updateUrl();
       urlUpdated = true;
     }
@@ -29,7 +29,7 @@ export default class MakerEnhance extends React.Component {
 
   updateUrl() {
     this.setState({
-      url: window.location.href
+      url: props.location.href
     });
   }
 
